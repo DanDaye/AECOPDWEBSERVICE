@@ -36,7 +36,7 @@ public class ChangePwdServlet extends HttpServlet {
 		username = new String(username.getBytes("ISO-8859-1"));
 //		System.out.println(username);
 		String password = request.getParameter("password");
-//		System.out.println(password);
+		System.out.println(password);
 		boolean signal=false;
 		signal = new UserDao().modifyUserPassword(username, password);
 		if (signal){

@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.LatestDao;
-import com.dao.UserDao;
+import com.dao.PatientDao;
 import com.entity.Latest;
-import com.entity.User;
+import com.entity.Patient;
 import com.google.gson.Gson;
 
 /**
@@ -41,23 +41,20 @@ public class userDetail extends HttpServlet {
 		Gson gson = new Gson();
 		PrintWriter out = response.getWriter();
 		boolean flag = false;
-		String username = request.getParameter("username");
-		username = new String(username.getBytes("ISO-8859-1"));
-		System.out.println(username);
+		String machine = request.getParameter("machine_id");
+		machine = new String(machine.getBytes("ISO-8859-1"));
+		System.out.println(machine);
 		boolean signal=false;
-		User u = new UserDao().findUser(username);
+		Patient p = new PatientDao().findPatient(machine);
 		String t = "";
-		if (u!=null){
+		if(p!=null){
 			signal = true;
-			t = u.getBirthDate().toString() ;
-//			System.out.println("time:"+t);
-			
+			t=p.getDat().toString();
 		}
-		u.setTime(t);
+		p.setTime(t);
 		if (signal){
-			String jsonData = gson.toJson(u);
+			String jsonData = gson.toJson(p);
 			out.write(jsonData);
-//			request.getSession().setAttribute("username", username);
 		}else{
 			out.print(false);
 		}

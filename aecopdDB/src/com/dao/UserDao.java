@@ -28,8 +28,6 @@ public class UserDao {
         		u.setAccount(ret.getString("username"));
         		u.setPassword(ret.getString("password"));
         		u.setMachine_id(ret.getString("machine_id"));
-        		u.setBirthDate(ret.getDate("birthdate"));
-        		u.setDisease_history(ret.getInt("disease_history"));
         		use.add(u);
             }
         }catch(Exception e){
@@ -56,10 +54,7 @@ public class UserDao {
         	 ret.beforeFirst();
         	while(ret.next()){
         		user.setAccount(ret.getString("username"));
-        		user.setBirthDate(ret.getDate("birthdate"));
         		user.setMachine_id(ret.getString("machine_id"));
-//        		System.out.println(ret.getInt("disease_history"));
-        		user.setDisease_history(ret.getInt("disease_history"));
             }
         }catch(Exception e){
         	e.printStackTrace();
@@ -102,17 +97,15 @@ public class UserDao {
 	
 	public boolean addUser(User u)
     {//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柟鐟板槻鐏忓懘骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾诲棘閵堝棗顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍝勫祮妞ゆ劦鍓氱�氬綊鏌ㄩ悢鍛婄伄闁瑰嘲鍢查悢顒勬煥閻旇鈻忔い蹇撳鐎氬綊鏌ㄩ悢鍝勫祮妞ゆ劦鍓氱�氬綊鏌ㄩ悢鍛婄伄闁归鏌夐悗浼搭敄閹烘鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢娲绘晭婵犲﹥鎯屾禍鐑藉箯閻戣姤鏅搁柡鍌樺�栫�氬綊鏌ㄩ悢娲绘晭闁跨噦鎷�    
-    	     sql = "INSERT INTO user (machine_id,username,birthdate,password,disease_history) "+
-    		"VALUES (?,?,?,?,?)";//SQL闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柨鐕傛嫹  
+    	     sql = "INSERT INTO user (machine_id,username,password) "+
+    		"VALUES (?,?,?)";//SQL闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柨鐕傛嫹  
     	     db1= new db_connection(sql);//闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氱b_connection闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柡鍌樺�栫�氾拷  
         try {        	
             
             db1.conn.setAutoCommit(false);
             db1.pst.setString(1, u.getMachine_id());
             db1.pst.setString(2, u.getAccount());
-            db1.pst.setDate(3, u.getBirthDate());
-            db1.pst.setString(4, u.getPassword());
-            db1.pst.setInt(5, u.getDisease_history());
+            db1.pst.setString(3, u.getPassword());
             db1.pst.executeUpdate();//闁圭瑳鍥ㄦ櫢闁哄倶鍊栫�氬綊鏌ㄩ悢鍛婄伄闁归鍏橀弫鎾绘晸閿燂拷
         	db1.pst.executeBatch();
         	//db1.conn.rollback(savePoint);
@@ -260,11 +253,4 @@ public class UserDao {
        }
 		return true;
 	}
-	
-//	public static void main(String[] args){
-//		User u = new UserDao().findUser("12345");
-//		System.out.println(u.getBirthDate());
-//		System.out.println(u.getDisease_history());
-//	}
-//	
 }

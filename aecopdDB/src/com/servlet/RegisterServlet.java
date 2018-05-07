@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.MachineDao;
+import com.dao.PatientDao;
 import com.dao.UserDao;
 import com.entity.*;
 import com.google.gson.Gson;
@@ -47,23 +48,21 @@ public class RegisterServlet extends HttpServlet {
 		password = new String(password.getBytes("ISO-8859-1"));
 		
 		//日期强转
-		String birth = request.getParameter("birthdate");
-		birth = new String(birth.getBytes("ISO-8859-1"));
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date d = null;
-		try{
-			d = format.parse(birth);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		java.sql.Date date = new java.sql.Date(d.getTime());
+//		String birth = request.getParameter("birthdate");
+//		birth = new String(birth.getBytes("ISO-8859-1"));
+//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//		java.util.Date d = null;
+//		try{
+//			d = format.parse(birth);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		java.sql.Date date = new java.sql.Date(d.getTime());
 		
 		
 		String machinename = request.getParameter("machine_id");
 		machinename = new String(machinename.getBytes("ISO-8859-1"));
 		
-		String desease_history = request.getParameter("desease_history");
-		desease_history = new String(desease_history.getBytes("ISO-8859-1"));
 		
 		boolean signal=false;
 		Machine mac =new MachineDao().findMachine(machinename);
@@ -75,7 +74,8 @@ public class RegisterServlet extends HttpServlet {
 				System.out.println("user has already exit");
 				out.print(signal + "1");
 			}else{
-				signal = new UserDao().addUser(new User(machinename,username,date,password,Integer.valueOf(desease_history).intValue()));
+				signal = new UserDao().addUser(new User(machinename,username,password));
+//				boolean signal1 = new PatientDao()
 				out.print(signal);
 			}
 		}else{

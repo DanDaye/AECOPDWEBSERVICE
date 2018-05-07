@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dao.PatientDao;
 import com.dao.UserDao;
 
 /**
@@ -32,16 +33,17 @@ public class ChangeBirth extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		String username = request.getParameter("username");
-		username = new String(username.getBytes("ISO-8859-1"));
+		String machine_id = request.getParameter("machine_id");
+		machine_id = new String(machine_id.getBytes("ISO-8859-1"));
 		
-		System.out.println(username);
+		System.out.println(machine_id);
 		String birthDate = request.getParameter("birthdate");
 		birthDate = new String(birthDate.getBytes("ISO-8859-1"));
 		
 		System.out.println(birthDate);
 		boolean signal=false;
-		signal = new UserDao().modifyUserBirth(username, birthDate);
+//		signal = new UserDao().modifyUserBirth(username, birthDate);
+		signal = new PatientDao().modifyPatientBirth(machine_id, birthDate);
 		out.print(signal);
 		out.flush();
 		out.close();

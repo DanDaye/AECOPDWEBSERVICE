@@ -79,7 +79,7 @@ public class classification {
 	}
 //	public static void main(String[] args) { 
 //		
-//		classification c =new classification((float)11.0,63,(float)56,(float)19,(float)108.0,(float)6.0,(float)3.5,(float)1.);
+//		classification c =new classification((float)11.0,63,(float)56,(float)19,(float)108.0,(float)6.0,(float)3.5,45, (float)1., "45","35");
 //		System.out.println(c.Classify());
 //	}
 }

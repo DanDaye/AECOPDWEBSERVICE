@@ -7,11 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form method="post" action="ChangeNormalServlet">
+<form method="post" action="latestServlet">
+<input name = "username">
 <input name = "machine_id">
-<input name = "type">
-<input name = "content">
-    	<input type="submit" value="submit">
+<input type="submit" value="submit">
 </form>
 </body>
 </html>

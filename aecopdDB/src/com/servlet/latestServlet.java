@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.LatestDao;
 import com.dao.NormalDao;
+import com.dao.PatientDao;
 import com.dao.UserDao;
 import com.entity.Latest;
 import com.entity.Normal;
+import com.entity.Patient;
 import com.entity.User;
 import com.entity.classification;
 import com.google.gson.Gson;
@@ -78,18 +80,17 @@ public class latestServlet extends HttpServlet {
 		float cough_level =Float.valueOf(la.getCough_level());
 		
 		User u = new UserDao().findUser(username);
+		Patient p = new PatientDao().findPatient(machine_id);
+		System.out.println("disease history "+p.getDisease_history());
 //		System.out.println("password:"+u.getAccount());
 		try {
-			System.out.println("birthDate"+u.getBirthDate()+" username"+username);
-			age = u.getAge(u.getBirthDate());
+//			System.out.println("birthDate"+u.getBirthDate()+" username"+username);
+			age = u.getAge(p.getDat());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		System.out.println("age:"+age);
-//		System.out.println("relivate:"+la.getRelivate());
-		String result = new classification(fev1,age,boold_rate_up,boold_rate_down,heart_rate,breath_rate,bmi,u.getDisease_history(),cough_level,la.getTemperature(),la.getRelivate()).Classify();
-//		System.out.println("result:"+result);
+		String result = new classification(fev1,age,boold_rate_up,boold_rate_down,heart_rate,breath_rate,bmi,Integer.valueOf(p.getDisease_history()),cough_level,la.getTemperature(),la.getRelivate()).Classify();
 		la.setLevel(Integer.valueOf(result));
 		if (signal){
 			String jsonData = gson.toJson(la);
