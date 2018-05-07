@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/com/dao/BMIRateDao.java=UTF-8
+encoding//src/com/dao/BooldRateDao.java=UTF-8
+encoding//src/com/dao/BreathRateDao.java=UTF-8
+encoding//src/com/dao/FEVDao.java=UTF-8
+encoding//src/com/dao/HeartRateDao.java=UTF-8
+encoding//src/com/dao/LatestDao.java=UTF-8
+encoding//src/com/dao/MachineDao.java=UTF-8
+encoding//src/com/dao/NormalDao.java=UTF-8
+encoding//src/com/dao/RelivateDao.java=UTF-8
+encoding//src/com/dao/TemperatureDao.java=UTF-8
+encoding//src/com/dao/UserDao.java=UTF-8
