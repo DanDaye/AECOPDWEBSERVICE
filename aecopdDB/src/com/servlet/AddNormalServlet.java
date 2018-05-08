@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,9 @@ import com.dao.BMIRateDao;
 import com.dao.FEVDao;
 import com.dao.LatestDao;
 import com.dao.NormalDao;
+import com.dao.PatientDao;
 import com.entity.Normal;
+import com.entity.Patient;
 
 /**
  * Servlet implementation class AddNormalServlet
@@ -62,10 +65,34 @@ public class AddNormalServlet extends HttpServlet {
 		n.setBoold_rate_up(boold_rate[0]);
 		n.setBoold_rate_down(boold_rate[1]);
 		
-		boolean signal = new NormalDao().AddNormal(machine_id, n);
-		boolean signal1 = new LatestDao().AddLatestDao(machine_id, n);
+		String temperature = request.getParameter("temperature");
+		temperature = new String(temperature.getBytes("ISO-8859-1"));
+		System.out.println("temperature: "+temperature);
 		
-		signal = signal && signal1;
+		
+		String relivate = request.getParameter("relivate");
+		relivate = new String(relivate.getBytes("ISO-8859-1"));
+		System.out.println("relivate: "+relivate);
+		
+		String birthdate = request.getParameter("birthdate");
+		birthdate = new String(birthdate.getBytes("ISO-8859-1"));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date d = null;
+		try{
+			d = format.parse(birthdate);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		java.sql.Date date = new java.sql.Date(d.getTime());
+		
+		String desease_history = request.getParameter("desease_history");
+		desease_history = new String(desease_history.getBytes("ISO-8859-1"));
+		boolean signal = new NormalDao().AddNormal(machine_id, n);
+		boolean signal1 = new LatestDao().AddLatestDao(machine_id, n,temperature,relivate);
+		
+		boolean signal2 = new PatientDao().addPatient(new Patient(machine_id,date,desease_history));
+		
+		signal = signal && signal1&&signal2;
 		if(signal){
 			new FEVDao().addFEV(machine_id, fev1);
 			new BMIRateDao().addBMIRate(machine_id, bmi);

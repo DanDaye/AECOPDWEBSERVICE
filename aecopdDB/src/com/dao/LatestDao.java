@@ -118,13 +118,48 @@ public class LatestDao {
     	
     }
     
-//    public static void main(String[] args){
-//    	System.out.println(new LatestDao().findLatest("2").getFev1());
-//    	String machine_id = "2";
-//    	int cough_level = 1;
-//    	LatestDao l = new LatestDao();
-//    	boolean result =l.Change_Cough_Level(machine_id, cough_level);
-//    	System.out.println(result);
-//    }
+    public boolean AddLatestDao(String machine_id,Normal n,String temperature,String relivate){
+    	sql = "INSERT INTO latest (machine_id,fev1,heart_rate,breath_rate,BMI,boold_rate_up,boold_rate_down,cough_level,temperature,relivate,Date,level) "+
+        		"VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";//SQL闂佽法鍠愰弸濠氬箯閻戣姤鏅搁柨鐕傛嫹  
+    	db1= new db_connection(sql);
+    	try{
+    		db1.conn.setAutoCommit(false);
+    		db1.pst.setString(1, machine_id);
+    		db1.pst.setString(2, n.getFev1());
+    		db1.pst.setString(3, n.getHeart_rate());
+    		db1.pst.setString(4, n.getBreath_rate());
+    		db1.pst.setString(5, n.getBMI());
+    		db1.pst.setString(6, n.getBoold_rate_up());
+    		db1.pst.setString(7, n.getBoold_rate_down());
+    		db1.pst.setString(8, "0");
+    		db1.pst.setString(9, temperature);
+    		db1.pst.setString(10, relivate);
+    		db1.pst.setTimestamp(11,new Timestamp(System.currentTimeMillis()));
+    		db1.pst.setString(12, "0");
+    		db1.pst.executeUpdate();
+    		db1.pst.executeBatch();
+    		db1.conn.commit();
+    	}catch (SQLException e) {   
+        	try{
+        		db1.conn.rollback();
+        	}catch(SQLException e1){
+        		e1.printStackTrace();
+        		return false;
+        	}
+            e.printStackTrace(); 
+            return false;
+           }
+           finally{
+        	 try {
+                 db1.conn.setAutoCommit(true);
+                 db1.close();//闂佽法鍠愰崺鍛村箟鐎ｎ偄顏堕梺璺ㄥ枑閺嬪骞忛悜鑺ユ櫢闁哄倶鍊栫�氾拷   
+             } catch (SQLException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+             }         
+        
+           }
+    	return true;
+    }
 
 }
