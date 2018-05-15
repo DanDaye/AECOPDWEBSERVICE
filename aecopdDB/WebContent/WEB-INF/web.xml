@@ -167,4 +167,13 @@
     <servlet-name>AddNormalServlet</servlet-name>
     <url-pattern>/AddNormalServlet</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>PriFilter</display-name>
+    <filter-name>PriFilter</filter-name>
+    <filter-class>com.filter.PriFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PriFilter</filter-name>
+    <url-pattern>/PriFilter</url-pattern>
+  </filter-mapping>
 </web-app>
