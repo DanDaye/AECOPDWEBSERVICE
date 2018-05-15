@@ -8,9 +8,10 @@
 </head>
 <body>
 <form method="post" action="login">
-<input name = "username">
+<!-- <input name = "username">
 <input name = "password">
-<input type="submit" value="submit">
+<input type="submit" value="submit"> -->
+<h>This is aecopd web service</h>
 </form>
 </body>
 </html>
