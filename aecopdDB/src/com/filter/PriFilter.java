@@ -43,21 +43,25 @@ public class PriFilter implements Filter {
 		
 		
 		// pass the request along the filter chain
+		System.out.println("this is filter");
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
 		
 		String path = request.getRequestURI().substring(request.getContextPath().length());
-		if("/login".equals(path)){
-			chain.doFilter(request, response);
-			return;
-		}else{
-			String existUser = (String)request.getSession().getAttribute("username");
-			if(existUser == null){
-				return;
-			}else{
+		System.out.println(path);
+		String existUser = (String)request.getSession().getAttribute("username");
+		if(existUser == null ){
+			if ("/".equals(path)||"/login".equals(path)){
 				chain.doFilter(request, response);
 				return;
+			}else{
+				response.sendRedirect(request.getContextPath());
+				
 			}
+		}else{
+			System.out.println("existUser"+existUser);
+			chain.doFilter(request, response);
+			return;
 		}
 	}
 

@@ -9,6 +9,16 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <filter>
+    <display-name>PriFilter</display-name>
+    <filter-name>PriFilter</filter-name>
+    <filter-class>com.filter.PriFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PriFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <servlet-name>/*</servlet-name>
+  </filter-mapping>
   <servlet>
     <servlet-name>login</servlet-name>
     <servlet-class>com.servlet.login</servlet-class>
@@ -167,13 +177,5 @@
     <servlet-name>AddNormalServlet</servlet-name>
     <url-pattern>/AddNormalServlet</url-pattern>
   </servlet-mapping>
-  <filter>
-    <display-name>PriFilter</display-name>
-    <filter-name>PriFilter</filter-name>
-    <filter-class>com.filter.PriFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>PriFilter</filter-name>
-    <url-pattern>/PriFilter</url-pattern>
-  </filter-mapping>
+  
 </web-app>
